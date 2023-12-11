@@ -8,20 +8,20 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
     private List<Task> tasks_; 
-    private float cpuTemperature_;
-    private float gpuTemperature_;
-    private float cpuPerformance_;
-    private float gpuPerformance_;
-    private float ramUsage_;
+    private int cpuTemperature_;
+    private int gpuTemperature_;
+    private int cpuPerformance_;
+    private int gpuPerformance_;
+    private int ramUsage_;
 
     private bool isUpdated;
 
-    private float totalCpuCapacity = 100.0f;  // Percentages
-    private float totalGpuCapacity = 100.0f; // Percentages
-    private float totalRamCapacity = 64.0f; //  GB
+    private int totalCpuCapacity = 100;  // Percentages
+    private int totalGpuCapacity = 100; // Percentages
+    private int totalRamCapacity = 64; //  GB
 
-    private float maxTemp = 80;
-    private float minTemp = 40;
+    private int maxTemp = 80;
+    private int minTemp = 40;
 
    
 
@@ -46,9 +46,9 @@ public class TaskManager : MonoBehaviour
             // // tasks_.Remove(chromeInstance);
             //}
 
-            float totalCPU = 0;
-            float totalGPU = 0;
-            float totalRAM = 0;
+            int totalCPU = 0;
+            int totalGPU = 0;
+            int totalRAM = 0;
             foreach (Task task in tasks_)
             {
                 totalCPU += task.GetCpuImpact();
@@ -59,6 +59,7 @@ public class TaskManager : MonoBehaviour
             gpuPerformance_ = totalGPU;
             ramUsage_ = totalRAM;
         }
+        this.DisplayTasks();
        
     }
     public float getCpuTemp()
@@ -132,7 +133,6 @@ public class TaskManager : MonoBehaviour
         {
             Debug.Log($"Total Task: {tasks_.Count}");
             Debug.Log($"CPU Performance: {getCpuPerformance()}");
-            Debug.Log($"GPU Performance: {getGpuPerformance()}");
         }
             
     }

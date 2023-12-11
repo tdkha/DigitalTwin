@@ -20,25 +20,25 @@ public class BrowserTabButton : MonoBehaviour, IPointerClickHandler
             {
                 browserTab = gameObject.AddComponent<Tab>();
                 browserTab.SetName("Youtube");
-                browserTab.SetRamImpact(250.0f);
-                browserTab.SetCpuImpact(10.0f);
-                browserTab.SetGpuImpact(10.0f);
+                browserTab.SetRamImpact(250);
+                browserTab.SetCpuImpact(10);
+                browserTab.SetGpuImpact(10);
             }
             if (id == "Yle")
             {
                 browserTab = gameObject.AddComponent<Tab>();
                 browserTab.SetName("Yle");
-                browserTab.SetRamImpact(150.0f);
-                browserTab.SetCpuImpact(8.0f);
-                browserTab.SetGpuImpact(8.0f);
+                browserTab.SetRamImpact(150);
+                browserTab.SetCpuImpact(8);
+                browserTab.SetGpuImpact(8);
             }
             if (id == "Reddit")
             {
                 browserTab = gameObject.AddComponent<Tab>();
                 browserTab.SetName("Reddit");
-                browserTab.SetRamImpact(200.0f);
-                browserTab.SetCpuImpact(12.0f);
-                browserTab.SetGpuImpact(12.0f);
+                browserTab.SetRamImpact(200);
+                browserTab.SetCpuImpact(12);
+                browserTab.SetGpuImpact(12);
             }
     }
 
@@ -49,14 +49,14 @@ public class BrowserTabButton : MonoBehaviour, IPointerClickHandler
         Browser foundTask = taskManager.FindBrowserTaskByName("Browser");
         if (foundTask != null && browserTab != null)
         {
-            foundTask.OpenTab(browserTab);
+            
             if (count == null || !int.TryParse(count.text, out int intCount))
             {
                 Debug.LogError("count is null or not a valid integer!");
                 return;
             }
 
-            // Now you can use intCount safely
+            foundTask.OpenTab(browserTab);
             intCount++;
 
             count.text = intCount.ToString();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Game : Task
 {
-    public Game(string name, float ram, float cpu, float gpu)
+    public Game(string name, int ram, int cpu, int gpu)
            : base(name, ram, cpu, gpu)
     {
 

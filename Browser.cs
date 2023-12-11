@@ -7,48 +7,33 @@ using UnityEngine;
 public class Browser : Task
 {
     private List<Tab> openTabs;
-
-    public Browser(string name, float ram, float cpu, float gpu)
+    public Browser(string name, int ram, int cpu, int gpu)
         : base(name, ram, cpu, gpu) // Initialize non-string values to 0 for GoogleChrome instance
     {
-        openTabs = new List<Tab>();
-        UpdateSpecs();
+        
     }
-
     public void Start()
     {
         openTabs = new List<Tab>();
-        
     }
     public void Update()
     {
+        List<Tab> tabInstances = openTabs.OfType<Tab>().Where(tab => tab.GetCount() == 0).ToList();
+
+        foreach (var tab in tabInstances)
+        {
+            openTabs.Remove(tab);
+        }
+
         UpdateSpecs();
     }
+
 
     public int GetNumTabs()
     {
         return openTabs.Count;
     }
 
-    public void OpenTab(string tabName, float ram = 0, float cpu = 0, float gpu = 0)
-    {
-        if (!openTabs.Any(tab => tab.GetName() == tabName))
-        {
-            // Open the new tab
-            openTabs.Add(new Tab(tabName, ram, cpu, gpu));
-            Debug.Log($"Opened a new tab '{tabName}'. Total tabs: {GetNumTabs()}");
-        }
-        else
-        {
-            // Same name 
-            Tab foundTab = openTabs.Find(tab => tab.GetName() == tabName);
-            foundTab.AddTab();
-            foundTab.AdjustSpecs();
-            Debug.Log($"Added a tab '{tabName}'. Total tabs: {GetNumTabs()}");
-        }
-        // Update the specs based on all tabs
-        UpdateSpecs();
-    }
 
     public void OpenTab(Tab tab)
     {
@@ -63,36 +48,8 @@ public class Browser : Task
             // Same name 
             Tab foundTab = openTabs.Find(existingTab => existingTab.GetName() == tab.GetName());
             foundTab.AddTab();
-            foundTab.AdjustSpecs();
             Debug.Log($"Added a tab '{tab.GetName()}'. Total tabs: {GetNumTabs()}");
         }
-        // Update the specs based on all tabs
-        UpdateSpecs();
-    }
-
-    public void CloseTab(string tabName)
-    {
-        var foundTab = openTabs.Find(tab => tab.GetName() == tabName);
-
-        if (foundTab != null)
-        {
-            foundTab.RemoveTab();
-            if (foundTab.GetCount() == 0)
-            {
-                openTabs.Remove(foundTab);
-                Console.WriteLine($"Closed the last tab '{tabName}'. GoogleChrome instance deleted.");
-            }
-            else
-            {
-                Console.WriteLine($"Closed a tab '{tabName}'. Total tabs: {GetNumTabs()}");
-            }
-        }
-        else
-        {
-            Console.WriteLine($"No tab found with the name '{tabName}'.");
-        }
-        // Update the specs based on all tabs
-        UpdateSpecs();
     }
 
     public void CloseTab(Tab tab)
@@ -102,9 +59,9 @@ public class Browser : Task
         if (foundTab != null)
         {
             foundTab.RemoveTab();
+
             if (foundTab.GetCount() == 0)
             {
-                openTabs.Remove(foundTab);
                 Console.WriteLine($"Closed the last tab '{tab.GetName()}'. GoogleChrome instance deleted.");
             }
             else
@@ -116,13 +73,13 @@ public class Browser : Task
         {
             Console.WriteLine($"No tab found with the name '{tab.GetName()}'.");
         }
-        // Update the specs based on all tabs
-        UpdateSpecs();
     }
+
+
 
     private void UpdateSpecs()
     {
-        float totalRam = 0, totalCpu = 0, totalGpu = 0;
+        int totalRam = 0, totalCpu = 0, totalGpu = 0;
 
         foreach (var tab in openTabs)
         {
@@ -139,18 +96,18 @@ public class Browser : Task
 
     // Override the GetRamImpact, GetCpuImpact, and GetGpuImpact methods
     // to return the sum of the specs of all tabs if there are any tabs
-    public new float GetRamImpact()
+    public new int GetRamImpact()
     {
-        return GetNumTabs() > 0 ? base.GetRamImpact() : -1;
+        return base.GetRamImpact() ;
     }
 
-    public new float GetCpuImpact()
+    public new int GetCpuImpact()
     {
-        return GetNumTabs() > 0 ? base.GetCpuImpact() : -1;
+        return base.GetCpuImpact() ;
     }
 
-    public new float GetGpuImpact()
+    public new int GetGpuImpact()
     {
-        return GetNumTabs() > 0 ? base.GetGpuImpact() : -1;
+        return base.GetGpuImpact() ;
     }
 }

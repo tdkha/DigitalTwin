@@ -5,11 +5,11 @@ using UnityEngine;
 public class Task : MonoBehaviour
 {
     protected string name_;
-    protected float ramImpact_;
-    protected float cpuImpact_;
-    protected float gpuImpact_;
+    protected int ramImpact_;
+    protected int cpuImpact_;
+    protected int gpuImpact_;
 
-    protected Task(string name, float ramImpact, float cpuImpact, float gpuImpact)
+    protected Task(string name, int ramImpact, int cpuImpact, int gpuImpact)
     {
         this.name_ = name;
         this.ramImpact_ = ramImpact;
@@ -22,17 +22,17 @@ public class Task : MonoBehaviour
         return name_;
     }
 
-    public float GetRamImpact()
+    public int GetRamImpact()
     {
         return ramImpact_;
     }
 
-    public float GetCpuImpact()
+    public int GetCpuImpact()
     {
         return cpuImpact_;
     }
 
-    public float GetGpuImpact()
+    public int GetGpuImpact()
     {
         return gpuImpact_;
     }
@@ -41,17 +41,17 @@ public class Task : MonoBehaviour
         this.name_ = name;
     }
 
-    public void SetRamImpact(float ram)
+    public void SetRamImpact(int ram)
     {
         this.ramImpact_ = ram;
     }
 
-    public void SetCpuImpact(float cpu)
+    public void SetCpuImpact(int cpu)
     {
         this.cpuImpact_ = cpu;
     }
 
-    public void SetGpuImpact(float gpu)
+    public void SetGpuImpact(int gpu)
     {
         this.gpuImpact_ = gpu;
     }
